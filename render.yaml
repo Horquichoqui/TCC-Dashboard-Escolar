@@ -1,23 +1,21 @@
-# Render Deploy Configuration - Serviço único: PHP serve API + frontend React
+# Render Deploy Configuration
+# Dois serviços: backend PHP/Laravel + frontend React (Static Site)
+
 services:
+  # ─── Backend: API Laravel/PHP ────────────────────────────────────────────────
   - type: web
-    name: tcc-dashboard
+    name: tcc-dashboard-backend
     runtime: php
     region: ohio
     plan: free
+    rootDir: backend
 
-    # Faz o build do React e do Laravel em sequência
     buildCommand: >
-      cd frontend &&
-      npm install --legacy-peer-deps &&
-      npm run build &&
-      cp -r dist/* ../backend/public/ &&
-      cd ../backend &&
       composer install --no-dev --optimize-autoloader &&
       php artisan key:generate --force &&
       php artisan migrate --force --seed
 
-    startCommand: cd backend && vendor/bin/heroku-php-apache2 public/
+    startCommand: vendor/bin/heroku-php-apache2 public/
 
     env:
       - key: APP_NAME
@@ -29,7 +27,7 @@ services:
       - key: APP_DEBUG
         value: "false"
       - key: APP_URL
-        value: https://tcc-dashboard.onrender.com
+        value: https://tcc-dashboard-backend.onrender.com
       - key: DB_CONNECTION
         value: pgsql
       - key: DB_HOST
@@ -50,5 +48,23 @@ services:
         value: cookie
       - key: LOG_LEVEL
         value: info
+
+  # ─── Frontend: React SPA (Static Site) ───────────────────────────────────────
+  - type: static
+    name: tcc-dashboard-frontend
+    region: ohio
+    rootDir: frontend
+
+    buildCommand: npm install --legacy-peer-deps && npm run build
+
+    staticPublishPath: dist
+
+    # Redireciona todas as rotas para index.html (React Router)
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+    env:
       - key: VITE_API_URL
-        value: /api
+        value: https://tcc-dashboard-backend.onrender.com/api
