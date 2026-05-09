@@ -41,3 +41,20 @@ services:
         value: cookie
       - key: LOG_LEVEL
         value: info
+
+  - type: web
+    name: tcc-dashboard-frontend
+    runtime: node
+    region: ohio
+    plan: free
+    rootDir: frontend
+
+    buildCommand: npm install --legacy-peer-deps && npm run build
+
+    startCommand: node server.js
+
+    env:
+      - key: NODE_ENV
+        value: development
+      - key: VITE_API_URL
+        value: https://tcc-dashboard-backend.onrender.com/api
