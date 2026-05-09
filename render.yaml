@@ -33,6 +33,16 @@ services:
         value: "false"
       - key: DB_CONNECTION
         value: pgsql
+      - key: DB_HOST
+        value: ep-proud-heart-acvmtl8f-pooler.sa-east-1.aws.neon.tech
+      - key: DB_PORT
+        value: "5432"
+      - key: DB_DATABASE
+        value: neondb
+      - key: DB_USERNAME
+        value: neondb_owner
+      - key: DB_PASSWORD
+        value: npg_VvXhG1akp7Zd
       - key: DB_SSLMODE
         value: require
       - key: CACHE_STORE
