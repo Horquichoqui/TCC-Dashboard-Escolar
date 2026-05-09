@@ -3,17 +3,19 @@ import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 import '../styles/FaltasPage.css';
 
+// Página para registrar presenças e faltas dos alunos por bimestre
 export default function FaltasPage() {
   const { usuario } = useAuth();
   const [alunos, setAlunos] = useState([]);
   const [bimestre, setBimestre] = useState(1);
   const [ano, setAno] = useState(new Date().getFullYear());
-  const [diasLetivos, setDiasLetivos] = useState([]);
-  const [presencasAlunos, setPresencasAlunos] = useState({});
+  const [diasLetivos, setDiasLetivos] = useState([]); // configuração de dias letivos por bimestre
+  const [presencasAlunos, setPresencasAlunos] = useState({}); // mapa: alunoId → dados de risco
   const [loading, setLoading] = useState(true);
-  const [alunoSelecionado, setAlunoSelecionado] = useState(null);
+  const [alunoSelecionado, setAlunoSelecionado] = useState(null); // id do aluno com formulário aberto
   const [novaFalta, setNovaFalta] = useState({ data: '', presente: true });
 
+  // Recarrega dados sempre que o bimestre ou o ano mudar
   useEffect(() => {
     carregarDados();
   }, [bimestre, ano]);
@@ -22,6 +24,7 @@ export default function FaltasPage() {
     try {
       setLoading(true);
 
+      // Busca alunos, dias letivos e relatório de risco em paralelo
       const [alunosRes, diasRes, presencaRes] = await Promise.all([
         api.get('/alunos'),
         api.get('/dias-letivos', { params: { ano } }),

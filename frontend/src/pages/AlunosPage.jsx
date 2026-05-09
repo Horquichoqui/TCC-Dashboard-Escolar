@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import '../styles/AlunosPage.css';
 
@@ -9,8 +8,8 @@ export default function AlunosPage() {
   const [filtroNome, setFiltroNome] = useState('');
   const [loading, setLoading] = useState(true);
   const [turmas, setTurmas] = useState([]);
-  const navigate = useNavigate();
 
+  // Carrega os alunos ao abrir a página
   useEffect(() => {
     carregarAlunos();
   }, []);
@@ -20,6 +19,7 @@ export default function AlunosPage() {
       const response = await api.get('/alunos');
       setAlunos(response.data.alunos);
 
+      // Extrai a lista de turmas únicas para o filtro
       const turmasUnicas = [...new Set(response.data.alunos.map((a) => a.turma))];
       setTurmas(turmasUnicas.sort());
     } catch (error) {
@@ -29,6 +29,7 @@ export default function AlunosPage() {
     }
   };
 
+  // Filtra localmente: combina os dois filtros (turma E nome)
   const alunosFiltrados = alunos.filter((aluno) => {
     const matchTurma = !filtroTurma || aluno.turma === filtroTurma;
     const matchNome = !filtroNome || aluno.nome.toLowerCase().includes(filtroNome.toLowerCase());
@@ -43,6 +44,7 @@ export default function AlunosPage() {
     <div className="alunos-page">
       <h1>Gerenciamento de Alunos</h1>
 
+      {/* Filtros de busca */}
       <div className="filtros">
         <input
           type="text"
@@ -58,24 +60,20 @@ export default function AlunosPage() {
         >
           <option value="">Todas as turmas</option>
           {turmas.map((turma) => (
-            <option key={turma} value={turma}>
-              Turma {turma}
-            </option>
+            <option key={turma} value={turma}>Turma {turma}</option>
           ))}
         </select>
       </div>
 
+      {/* Grade com cards dos alunos */}
       <div className="alunos-container">
         {alunosFiltrados.length === 0 ? (
           <p className="sem-resultados">Nenhum aluno encontrado</p>
         ) : (
           <div className="alunos-grid">
             {alunosFiltrados.map((aluno) => (
-              <div
-                key={aluno.id}
-                className="aluno-card"
-                onClick={() => navigate(`/alunos/${aluno.id}`)}
-              >
+              <div key={aluno.id} className="aluno-card">
+                {/* Iniciais do nome como avatar */}
                 <div className="aluno-avatar">
                   {aluno.nome.charAt(0).toUpperCase()}
                 </div>
@@ -85,7 +83,6 @@ export default function AlunosPage() {
                   <p className="turma">Turma: {aluno.turma}</p>
                   {aluno.email && <p className="email">{aluno.email}</p>}
                 </div>
-                <div className="aluno-action">→</div>
               </div>
             ))}
           </div>

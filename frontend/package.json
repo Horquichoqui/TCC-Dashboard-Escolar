@@ -16,6 +16,7 @@
     "express": "^4.18.2",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
+    "react-is": "^19.0.0",
     "react-router-dom": "^7.15.0",
     "recharts": "^3.8.1"
   },

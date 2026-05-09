@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import {
-  BarChart, Bar, LineChart, Line, PieChart, Pie, Cell,
+  BarChart, Bar, PieChart, Pie, Cell,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
 import api from '../services/api';
 import '../styles/DashboardPage.css';
+
+// Cores para diferenciar as turmas no gráfico de pizza
+const CORES_TURMAS = ['#D4A017', '#1a1a1a', '#8B6914', '#4a4a4a', '#B8860B', '#6b6b6b'];
 
 export default function DashboardPage() {
   const [alunos, setAlunos] = useState([]);
@@ -16,6 +19,7 @@ export default function DashboardPage() {
     frequenciaMedia: 0,
   });
 
+  // Carrega os dados ao abrir a página
   useEffect(() => {
     carregarDados();
   }, []);
@@ -29,7 +33,6 @@ export default function DashboardPage() {
 
       setAlunos(alunosRes.data.alunos);
       setNotas(notasRes.data.notas);
-
       calcularEstatisticas(alunosRes.data.alunos, notasRes.data.notas);
     } catch (error) {
       console.error('Erro ao carregar dados:', error);
@@ -38,9 +41,8 @@ export default function DashboardPage() {
     }
   };
 
+  // Calcula quantos alunos estão abaixo da média (nota < 6)
   const calcularEstatisticas = (alunos, notas) => {
-    const totalAlunos = alunos.length;
-
     const mediasPorAluno = {};
     notas.forEach((nota) => {
       if (!mediasPorAluno[nota.aluno_id]) {
@@ -50,44 +52,32 @@ export default function DashboardPage() {
     });
 
     let alunosEmRisco = 0;
-    Object.values(mediasPorAluno).forEach((notas) => {
-      const media = notas.reduce((a, b) => a + b, 0) / notas.length;
+    Object.values(mediasPorAluno).forEach((notasAluno) => {
+      const media = notasAluno.reduce((a, b) => a + b, 0) / notasAluno.length;
       if (media < 6) alunosEmRisco++;
     });
 
-    setStats({
-      totalAlunos,
-      alunosEmRisco,
-      frequenciaMedia: 85,
-    });
+    setStats({ totalAlunos: alunos.length, alunosEmRisco, frequenciaMedia: 85 });
   };
 
+  // Dados para o gráfico de barras: média dos primeiros 5 alunos
   const dadosMediasPorAluno = alunos.slice(0, 5).map((aluno) => {
     const notasAluno = notas.filter((n) => n.aluno_id === aluno.id);
-    const media =
-      notasAluno.length > 0
-        ? (notasAluno.reduce((a, b) => a + b.valor_nota, 0) / notasAluno.length).toFixed(1)
-        : 0;
-    return {
-      nome: aluno.nome,
-      media: parseFloat(media),
-    };
+    const media = notasAluno.length > 0
+      ? (notasAluno.reduce((a, b) => a + b.valor_nota, 0) / notasAluno.length).toFixed(1)
+      : 0;
+    return { nome: aluno.nome.split(' ')[0], media: parseFloat(media) };
   });
 
-  const dadosDistribuicaoTurmas = {};
+  // Dados para o gráfico de pizza: quantidade de alunos por turma
+  const distribuicaoPorTurma = {};
   alunos.forEach((aluno) => {
-    if (!dadosDistribuicaoTurmas[aluno.turma]) {
-      dadosDistribuicaoTurmas[aluno.turma] = 0;
-    }
-    dadosDistribuicaoTurmas[aluno.turma]++;
+    distribuicaoPorTurma[aluno.turma] = (distribuicaoPorTurma[aluno.turma] || 0) + 1;
   });
-
-  const dadosTurmas = Object.entries(dadosDistribuicaoTurmas).map(([turma, count]) => ({
+  const dadosTurmas = Object.entries(distribuicaoPorTurma).map(([turma, count]) => ({
     name: turma,
     value: count,
   }));
-
-  const cores = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F'];
 
   if (loading) {
     return <div className="dashboard-loading">Carregando dados...</div>;
@@ -97,6 +87,7 @@ export default function DashboardPage() {
     <div className="dashboard">
       <h1>Dashboard de Monitoramento de Alunos</h1>
 
+      {/* Cards com números rápidos */}
       <div className="stats-container">
         <div className="stat-card">
           <div className="stat-icon">👥</div>
@@ -123,6 +114,7 @@ export default function DashboardPage() {
         </div>
       </div>
 
+      {/* Gráficos de desempenho */}
       <div className="charts-container">
         <div className="chart-box">
           <h2>Média de Notas por Aluno</h2>
@@ -132,7 +124,7 @@ export default function DashboardPage() {
               <XAxis dataKey="nome" />
               <YAxis domain={[0, 10]} />
               <Tooltip />
-              <Bar dataKey="media" fill="#3498db" />
+              <Bar dataKey="media" fill="#D4A017" name="Média" />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -151,7 +143,7 @@ export default function DashboardPage() {
                 label
               >
                 {dadosTurmas.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={cores[index % cores.length]} />
+                  <Cell key={`cell-${index}`} fill={CORES_TURMAS[index % CORES_TURMAS.length]} />
                 ))}
               </Pie>
               <Tooltip />

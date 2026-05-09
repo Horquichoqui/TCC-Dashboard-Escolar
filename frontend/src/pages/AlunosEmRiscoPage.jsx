@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 import '../styles/AlunosEmRiscoPage.css';
 
+// Página que lista os alunos com nota abaixo de 5 ou presença abaixo de 75%
 export default function AlunosEmRiscoPage() {
-  const { usuario } = useAuth();
   const [alunos, setAlunos] = useState([]);
   const [bimestre, setBimestre] = useState(1);
   const [ano, setAno] = useState(new Date().getFullYear());
@@ -24,6 +23,7 @@ export default function AlunosEmRiscoPage() {
 
       let alunosFiltrados = res.data.alunos_em_risco || [];
 
+      // Aplica filtro adicional por tipo de risco se o usuário selecionou um
       if (filtro === 'nota') {
         alunosFiltrados = alunosFiltrados.filter(a => a.em_risco_nota);
       } else if (filtro === 'falta') {
@@ -38,6 +38,7 @@ export default function AlunosEmRiscoPage() {
     }
   };
 
+  // Define a classe CSS da linha da tabela conforme o tipo de risco
   const getRiscoBg = (aluno) => {
     if (aluno.em_risco_nota && aluno.em_risco_falta) {
       return 'critico';
