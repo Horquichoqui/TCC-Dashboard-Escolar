@@ -139,12 +139,12 @@ export default function FaltasPage() {
                 <div className="risco-info">
                   {emRisco.em_risco_nota && (
                     <div className="risco-item nota-baixa">
-                      📚 Média: {emRisco.media_notas} (< 5.0)
+                      📚 Média: {emRisco.media_notas} (&lt; 5.0)
                     </div>
                   )}
                   {emRisco.em_risco_falta && (
                     <div className="risco-item falta-alta">
-                      📅 Presença: {emRisco.percentual_presenca}% (< 75%)
+                      📅 Presença: {emRisco.percentual_presenca}% (&lt; 75%)
                     </div>
                   )}
                 </div>

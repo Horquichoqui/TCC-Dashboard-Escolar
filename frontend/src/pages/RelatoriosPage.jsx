@@ -257,7 +257,7 @@ export default function RelatoriosPage() {
         </div>
         <div className="legenda-item">
           <span className="legenda-cor" style={{ backgroundColor: '#ef4444' }}></span>
-          <p>Em risco (nota < 5 ou presença < 75%)</p>
+          <p>Em risco (nota &lt; 5 ou presença &lt; 75%)</p>
         </div>
         <div className="legenda-item">
           <span className="legenda-cor" style={{ backgroundColor: '#fbbf24' }}></span>
