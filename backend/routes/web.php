@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Serve o React SPA para qualquer rota que não seja API nem arquivo estático
+Route::get('/{any}', function () {
+    return response()->file(public_path('index.html'));
+})->where('any', '.*');

@@ -1,36 +1,35 @@
-# Render Deploy Configuration
-# Para usar este arquivo:
-# 1. Conecte seu repositório GitHub ao Render
-# 2. Render detectará este arquivo automaticamente
-# 3. Suas variáveis de ambiente serão definidas no painel do Render
-
+# Render Deploy Configuration - Serviço único: PHP serve API + frontend React
 services:
   - type: web
-    name: tcc-dashboard-backend
+    name: tcc-dashboard
     runtime: php
     region: ohio
     plan: free
 
-    # Build settings
+    # Faz o build do React e do Laravel em sequência
     buildCommand: >
-      cd backend &&
+      cd frontend &&
+      npm install --legacy-peer-deps &&
+      npm run build &&
+      cp -r dist/* ../backend/public/ &&
+      cd ../backend &&
       composer install --no-dev --optimize-autoloader &&
-      php artisan key:generate &&
+      php artisan key:generate --force &&
       php artisan migrate --force --seed
 
-    # Start command using Apache
-    startCommand: >
-      cd backend &&
-      vendor/bin/heroku-php-apache2 public/
+    startCommand: cd backend && vendor/bin/heroku-php-apache2 public/
 
-    # Environment variables (definir no painel do Render)
     env:
       - key: APP_NAME
         value: Dashboard
       - key: APP_ENV
         value: production
+      - key: APP_KEY
+        value: base64:BWskfY9YT036Qrio94ikbH83MZbC7nAiAKxgbd0vZ+g=
       - key: APP_DEBUG
         value: "false"
+      - key: APP_URL
+        value: https://tcc-dashboard.onrender.com
       - key: DB_CONNECTION
         value: pgsql
       - key: DB_HOST
@@ -51,20 +50,5 @@ services:
         value: cookie
       - key: LOG_LEVEL
         value: info
-
-  - type: web
-    name: tcc-dashboard-frontend
-    runtime: node
-    region: ohio
-    plan: free
-    rootDir: frontend
-
-    buildCommand: npm install --legacy-peer-deps && npm run build
-
-    startCommand: node server.js
-
-    env:
-      - key: NODE_ENV
-        value: development
       - key: VITE_API_URL
-        value: https://tcc-dashboard-backend.onrender.com/api
+        value: /api
