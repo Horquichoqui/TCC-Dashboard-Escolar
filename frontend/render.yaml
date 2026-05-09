@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: tcc-dashboard-frontend
+    runtime: node
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: VITE_API_URL
+        value: https://tcc-dashboard-backend.onrender.com/api

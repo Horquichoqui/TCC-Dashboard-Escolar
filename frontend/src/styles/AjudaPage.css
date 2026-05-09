@@ -1,0 +1,420 @@
+.ajuda-container {
+  background: var(--light-bg);
+  min-height: 100%;
+  padding: 0;
+}
+
+.ajuda-header {
+  background: linear-gradient(135deg, var(--secondary) 0%, rgba(0,0,0,0.8) 100%);
+  color: var(--white);
+  padding: 40px;
+  text-align: center;
+  border-bottom: 4px solid var(--primary);
+}
+
+.ajuda-header h1 {
+  color: var(--primary);
+  font-size: 2.5em;
+  margin: 0 0 10px 0;
+}
+
+.ajuda-header p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.1em;
+  margin: 0;
+}
+
+.ajuda-layout {
+  display: flex;
+  gap: 0;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: calc(100vh - 300px);
+}
+
+/* Sidebar Ajuda */
+.ajuda-sidebar {
+  width: 250px;
+  background: var(--white);
+  border-right: 3px solid var(--primary);
+  padding: 20px 0;
+  position: sticky;
+  top: 0;
+  height: fit-content;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.ajuda-menu {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ajuda-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: transparent;
+  border: none;
+  color: var(--text-dark);
+  font-size: 1em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-left: 4px solid transparent;
+  text-align: left;
+  width: 100%;
+}
+
+.ajuda-menu-item .emoji {
+  font-size: 1.3em;
+  min-width: 30px;
+}
+
+.ajuda-menu-item:hover {
+  background: rgba(212, 160, 23, 0.1);
+  border-left-color: var(--primary);
+  padding-left: 20px;
+}
+
+.ajuda-menu-item.ativo {
+  background: rgba(212, 160, 23, 0.2);
+  color: var(--primary);
+  border-left-color: var(--primary);
+  font-weight: 700;
+}
+
+/* Main Content */
+.ajuda-main {
+  flex: 1;
+  padding: 40px;
+  background: var(--white);
+  overflow-y: auto;
+}
+
+.ajuda-secao h2 {
+  color: var(--secondary);
+  font-size: 2em;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 3px solid var(--primary);
+}
+
+.ajuda-content {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Cards de Explicação */
+.card-boas-vindas,
+.card-explicacao,
+.card-condicao,
+.card-grafico,
+.card-importante {
+  background: var(--light-bg);
+  border-left: 5px solid var(--primary);
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.card-boas-vindas {
+  border-left: 5px solid var(--primary);
+  background: linear-gradient(135deg, rgba(212, 160, 23, 0.08), rgba(212, 160, 23, 0.02));
+  padding: 40px;
+  text-align: center;
+}
+
+.card-boas-vindas h2 {
+  color: var(--primary);
+  border: none;
+  margin-top: 0;
+}
+
+.card-boas-vindas p {
+  font-size: 1.1em;
+  color: var(--text-dark);
+  margin: 15px 0;
+}
+
+.card-boas-vindas .destaque {
+  background: var(--primary);
+  color: var(--white);
+  padding: 15px;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-top: 25px;
+}
+
+.card-explicacao h5,
+.card-condicao h4,
+.card-grafico h4 {
+  color: var(--secondary);
+  font-size: 1.2em;
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.card-explicacao p,
+.card-condicao p,
+.card-grafico p {
+  color: var(--text-dark);
+  margin: 8px 0;
+  line-height: 1.8;
+}
+
+.card-importante {
+  background: linear-gradient(135deg, #fff7e6, #fffbf0);
+  border-left: 5px solid #E67E22;
+}
+
+.card-importante h4 {
+  color: #E67E22;
+  margin-top: 0;
+}
+
+/* Passos */
+.passo {
+  background: var(--light-bg);
+  padding: 20px;
+  border-left: 5px solid var(--primary);
+  margin: 15px 0;
+  border-radius: 8px;
+}
+
+.passo h4 {
+  color: var(--primary);
+  margin-top: 0;
+  font-size: 1.1em;
+}
+
+.passo p {
+  color: var(--text-dark);
+  margin: 10px 0 0;
+}
+
+/* Seção Ajuda */
+.secao-ajuda {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.secao-ajuda h3 {
+  color: var(--secondary);
+  font-size: 1.6em;
+  margin: 0 0 15px 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--primary);
+}
+
+.secao-ajuda h4 {
+  color: var(--secondary);
+  font-size: 1.1em;
+  margin: 15px 0 10px 0;
+}
+
+.secao-ajuda p {
+  color: var(--text-dark);
+  margin: 10px 0;
+  line-height: 1.8;
+}
+
+.secao-ajuda ul {
+  color: var(--text-dark);
+  margin: 15px 0;
+  padding-left: 25px;
+}
+
+.secao-ajuda li {
+  margin: 8px 0;
+  line-height: 1.7;
+}
+
+/* Condições Especiais */
+.card-condicao {
+  border-left-color: #E67E22;
+  background: linear-gradient(135deg, rgba(230, 126, 34, 0.05), rgba(230, 126, 34, 0.02));
+}
+
+.card-condicao.critica {
+  border-left-color: #C0392B;
+  background: linear-gradient(135deg, rgba(192, 57, 43, 0.05), rgba(192, 57, 43, 0.02));
+}
+
+.indicador {
+  font-weight: 600;
+  color: var(--primary);
+  margin-top: 10px;
+}
+
+/* FAQ */
+.faq-item {
+  background: var(--light-bg);
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid var(--primary);
+  margin: 15px 0;
+}
+
+.faq-item h4 {
+  color: var(--secondary);
+  margin: 0 0 10px 0;
+  font-size: 1.05em;
+}
+
+.faq-item p {
+  color: var(--text-dark);
+  margin: 0;
+  line-height: 1.7;
+}
+
+/* Dicas */
+.dica {
+  background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+  border-left: 5px solid var(--success);
+  padding: 15px;
+  border-radius: 8px;
+  color: var(--text-dark);
+  margin: 20px 0;
+  font-weight: 500;
+}
+
+/* Footer */
+.ajuda-footer {
+  background: linear-gradient(135deg, var(--secondary), rgba(0,0,0,0.8));
+  color: var(--white);
+  padding: 30px 40px;
+  text-align: center;
+  border-top: 3px solid var(--primary);
+  margin-top: 40px;
+}
+
+.ajuda-footer p {
+  margin: 10px 0;
+  font-size: 1.05em;
+}
+
+.ajuda-footer strong {
+  color: var(--primary);
+}
+
+/* Responsivo */
+@media (max-width: 1024px) {
+  .ajuda-layout {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .ajuda-sidebar {
+    width: 100%;
+    position: static;
+    height: auto;
+    border-right: none;
+    border-bottom: 3px solid var(--primary);
+  }
+
+  .ajuda-menu {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 0 20px;
+  }
+
+  .ajuda-menu-item {
+    flex-shrink: 0;
+    padding: 12px 14px;
+    width: auto;
+  }
+
+  .ajuda-main {
+    padding: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ajuda-header {
+    padding: 25px 20px;
+  }
+
+  .ajuda-header h1 {
+    font-size: 1.8em;
+  }
+
+  .ajuda-main {
+    padding: 20px;
+  }
+
+  .card-boas-vindas,
+  .card-explicacao,
+  .passo {
+    padding: 15px;
+  }
+
+  .ajuda-menu-item .emoji {
+    font-size: 1.1em;
+  }
+
+  .ajuda-menu-item {
+    padding: 10px 12px;
+    font-size: 0.95em;
+  }
+
+  .ajuda-secao h2 {
+    font-size: 1.5em;
+  }
+
+  .ajuda-footer {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .ajuda-menu-item span {
+    display: none;
+  }
+
+  .ajuda-menu-item {
+    justify-content: center;
+    padding: 12px 8px;
+  }
+
+  .ajuda-header h1 {
+    font-size: 1.5em;
+  }
+
+  .ajuda-main {
+    padding: 15px;
+  }
+
+  .card-boas-vindas {
+    padding: 20px;
+  }
+}
+
+/* Scrollbar */
+.ajuda-sidebar::-webkit-scrollbar,
+.ajuda-main::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ajuda-sidebar::-webkit-scrollbar-track,
+.ajuda-main::-webkit-scrollbar-track {
+  background: var(--light-bg);
+}
+
+.ajuda-sidebar::-webkit-scrollbar-thumb,
+.ajuda-main::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+.ajuda-sidebar::-webkit-scrollbar-thumb:hover,
+.ajuda-main::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}

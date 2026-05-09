@@ -1,0 +1,43 @@
+# Render Deploy Configuration
+# Para usar este arquivo:
+# 1. Conecte seu repositório GitHub ao Render
+# 2. Render detectará este arquivo automaticamente
+# 3. Suas variáveis de ambiente serão definidas no painel do Render
+
+services:
+  - type: web
+    name: tcc-dashboard-backend
+    runtime: php
+    region: ohio
+    plan: free
+
+    # Build settings
+    buildCommand: >
+      cd backend &&
+      composer install --no-dev --optimize-autoloader &&
+      php artisan key:generate &&
+      php artisan migrate --force --seed
+
+    # Start command using Apache
+    startCommand: >
+      cd backend &&
+      vendor/bin/heroku-php-apache2 public/
+
+    # Environment variables (definir no painel do Render)
+    env:
+      - key: APP_NAME
+        value: Dashboard
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_SSLMODE
+        value: require
+      - key: CACHE_STORE
+        value: file
+      - key: SESSION_DRIVER
+        value: cookie
+      - key: LOG_LEVEL
+        value: info
