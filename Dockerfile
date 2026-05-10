@@ -36,8 +36,9 @@ COPY backend/ /var/www/html/
 COPY --from=frontend-builder /app/dist/ /var/www/html/public/
 
 # Instalar dependências PHP
+# Remove o composer.lock para forçar resolução com PHP 8.3 (Laravel 12 / Symfony 7)
 WORKDIR /var/www/html
-RUN composer install --no-dev --optimize-autoloader
+RUN rm -f composer.lock && composer install --no-dev --optimize-autoloader
 
 # Permissões para Laravel
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
