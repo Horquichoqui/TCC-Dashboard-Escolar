@@ -9,12 +9,9 @@ services:
     region: ohio
     plan: free
     rootDir: backend
-
     buildCommand: bash build.sh
-
     startCommand: vendor/bin/heroku-php-apache2 public/
-
-    env:
+    envVars:
       - key: APP_NAME
         value: Dashboard
       - key: APP_ENV
@@ -54,7 +51,7 @@ services:
     rootDir: frontend
     buildCommand: npm install --legacy-peer-deps && npm run build
     staticPublishPath: dist
-    env:
+    envVars:
       - key: VITE_API_URL
         value: https://tcc-dashboard-backend.onrender.com/api
     routes:
