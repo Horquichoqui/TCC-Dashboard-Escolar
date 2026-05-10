@@ -1,12 +1,11 @@
 services:
   - type: web
     name: tcc-dashboard-backend
-    env: native
+    runtime: docker
     region: ohio
     plan: free
     rootDir: backend
-    buildCommand: bash build.sh
-    startCommand: vendor/bin/heroku-php-apache2 public/
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: APP_NAME
         value: Dashboard
@@ -40,7 +39,7 @@ services:
         value: info
   - type: web
     name: tcc-dashboard-frontend
-    env: node
+    runtime: node
     region: ohio
     plan: free
     rootDir: frontend
