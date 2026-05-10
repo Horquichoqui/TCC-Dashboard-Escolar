@@ -5,7 +5,6 @@ services:
   # --- Backend: API Laravel/PHP ---
   - type: web
     name: tcc-dashboard-backend
-    runtime: php
     region: ohio
     plan: free
     rootDir: backend
@@ -47,7 +46,6 @@ services:
   - type: web
     name: tcc-dashboard-frontend
     runtime: static
-    region: ohio
     rootDir: frontend
     buildCommand: npm install --legacy-peer-deps && npm run build
     staticPublishPath: dist
