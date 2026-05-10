@@ -1,7 +1,7 @@
 services:
   - type: web
     name: tcc-dashboard-backend
-    env: docker
+    env: native
     region: ohio
     plan: free
     rootDir: backend
