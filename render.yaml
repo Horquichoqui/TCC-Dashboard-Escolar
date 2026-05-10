@@ -1,10 +1,7 @@
-# Render Deploy Configuration
-# Backend PHP/Laravel + Frontend React (Static Site)
-
 services:
-  # --- Backend: API Laravel/PHP ---
   - type: web
     name: tcc-dashboard-backend
+    env: docker
     region: ohio
     plan: free
     rootDir: backend
@@ -41,18 +38,14 @@ services:
         value: cookie
       - key: LOG_LEVEL
         value: info
-
-  # --- Frontend: React SPA (Static Site) ---
   - type: web
     name: tcc-dashboard-frontend
-    runtime: static
+    env: node
+    region: ohio
+    plan: free
     rootDir: frontend
     buildCommand: npm install --legacy-peer-deps && npm run build
-    staticPublishPath: dist
+    startCommand: npx serve -s dist -l 3000
     envVars:
       - key: VITE_API_URL
         value: https://tcc-dashboard-backend.onrender.com/api
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
