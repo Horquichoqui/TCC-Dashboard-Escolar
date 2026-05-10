@@ -9,6 +9,10 @@ class NotaSeeder extends Seeder
 {
     public function run(): void
     {
+        if (Nota::count() > 0) {
+            return;
+        }
+
         $notas = [
             ['aluno_id' => 1, 'disciplina_id' => 1, 'valor_nota' => 8.5, 'semestre' => 1],
             ['aluno_id' => 1, 'disciplina_id' => 2, 'valor_nota' => 7.0, 'semestre' => 1],

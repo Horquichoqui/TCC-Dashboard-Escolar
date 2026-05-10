@@ -2,17 +2,19 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Aluno;
+use App\Models\Falta;
 use Illuminate\Database\Seeder;
 
 class FaltaSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        $alunos = \App\Models\Aluno::all();
+        if (Falta::count() > 0) {
+            return;
+        }
+
+        $alunos = Aluno::all();
         $bimestres = [1, 2, 3, 4];
         $diasLetivos = [50, 52, 48, 50];
 
@@ -21,19 +23,19 @@ class FaltaSeeder extends Seeder
                 $dias = $diasLetivos[$i];
                 $faltas = rand(0, 8);
 
-                $datas = [];
+                $registros = [];
                 for ($j = 1; $j <= $dias; $j++) {
-                    $datas[] = [
-                        'aluno_id' => $aluno->id,
-                        'data' => now()->addDays($j),
-                        'presente' => rand(0, 100) > ($faltas * 10 / $dias),
-                        'bimestre' => $bimestre,
+                    $registros[] = [
+                        'aluno_id'   => $aluno->id,
+                        'data'       => now()->addDays($j),
+                        'presente'   => rand(0, 100) > ($faltas * 10 / $dias),
+                        'bimestre'   => $bimestre,
                         'created_at' => now(),
                         'updated_at' => now(),
                     ];
                 }
 
-                \App\Models\Falta::insert($datas);
+                Falta::insert($registros);
             }
         }
     }
