@@ -1,6 +1,3 @@
-# Render Deploy Configuration
-# Serviço único unificado: Laravel (API) + React (SPA) via Docker
-
 services:
   - type: web
     name: tcc-dashboard
@@ -8,8 +5,7 @@ services:
     region: ohio
     plan: free
     dockerfilePath: ./Dockerfile
-
-    env:
+    envVars:
       - key: APP_NAME
         value: Dashboard
       - key: APP_ENV
