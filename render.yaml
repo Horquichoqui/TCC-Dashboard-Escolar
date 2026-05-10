@@ -1,12 +1,20 @@
+# Render Deploy Configuration
+# Dois serviços: backend PHP/Laravel + frontend React (Static Site)
+
 services:
+  # ─── Backend: API Laravel/PHP ────────────────────────────────────────────────
   - type: web
     name: tcc-dashboard-backend
-    runtime: docker
+    runtime: php
     region: ohio
     plan: free
     rootDir: backend
-    dockerfilePath: ./Dockerfile
-    envVars:
+
+    buildCommand: bash build.sh
+
+    startCommand: vendor/bin/heroku-php-apache2 public/
+
+    env:
       - key: APP_NAME
         value: Dashboard
       - key: APP_ENV
@@ -37,14 +45,23 @@ services:
         value: cookie
       - key: LOG_LEVEL
         value: info
-  - type: web
+
+  # ─── Frontend: React SPA (Static Site) ───────────────────────────────────────
+  - type: static
     name: tcc-dashboard-frontend
-    runtime: node
     region: ohio
-    plan: free
     rootDir: frontend
+
     buildCommand: npm install --legacy-peer-deps && npm run build
-    startCommand: npx serve -s dist -l 3000
-    envVars:
+
+    staticPublishPath: dist
+
+    # Redireciona todas as rotas para index.html (React Router)
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+    env:
       - key: VITE_API_URL
         value: https://tcc-dashboard-backend.onrender.com/api
