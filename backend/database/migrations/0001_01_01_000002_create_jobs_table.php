@@ -3,12 +3,13 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
     public function up(): void
     {
-        Schema::statement('CREATE TABLE IF NOT EXISTS jobs (
+        DB::statement('CREATE TABLE IF NOT EXISTS jobs (
             id BIGSERIAL PRIMARY KEY,
             queue VARCHAR(255),
             payload TEXT,
@@ -18,9 +19,9 @@ return new class extends Migration
             created_at INTEGER
         )');
 
-        Schema::statement('CREATE INDEX IF NOT EXISTS jobs_queue_index ON jobs(queue)');
+        DB::statement('CREATE INDEX IF NOT EXISTS jobs_queue_index ON jobs(queue)');
 
-        Schema::statement('CREATE TABLE IF NOT EXISTS job_batches (
+        DB::statement('CREATE TABLE IF NOT EXISTS job_batches (
             id VARCHAR(255) PRIMARY KEY,
             name VARCHAR(255),
             total_jobs INTEGER,
@@ -33,7 +34,7 @@ return new class extends Migration
             finished_at INTEGER
         )');
 
-        Schema::statement('CREATE TABLE IF NOT EXISTS failed_jobs (
+        DB::statement('CREATE TABLE IF NOT EXISTS failed_jobs (
             id BIGSERIAL PRIMARY KEY,
             uuid VARCHAR(255) UNIQUE,
             connection TEXT,

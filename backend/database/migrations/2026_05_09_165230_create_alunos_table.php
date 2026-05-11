@@ -3,12 +3,13 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
     public function up(): void
     {
-        Schema::statement('CREATE TABLE IF NOT EXISTS alunos (
+        DB::statement('CREATE TABLE IF NOT EXISTS alunos (
             id BIGSERIAL PRIMARY KEY,
             nome VARCHAR(255),
             matricula VARCHAR(255) UNIQUE,
@@ -20,7 +21,7 @@ return new class extends Migration
             updated_at TIMESTAMP
         )');
 
-        Schema::statement('CREATE INDEX IF NOT EXISTS alunos_usuario_id_index ON alunos(usuario_id)');
+        DB::statement('CREATE INDEX IF NOT EXISTS alunos_usuario_id_index ON alunos(usuario_id)');
     }
 
     public function down(): void

@@ -3,12 +3,13 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
     public function up(): void
     {
-        Schema::statement('CREATE TABLE IF NOT EXISTS usuarios (
+        DB::statement('CREATE TABLE IF NOT EXISTS usuarios (
             id BIGSERIAL PRIMARY KEY,
             nome VARCHAR(255) NOT NULL,
             email VARCHAR(255) NOT NULL UNIQUE,
@@ -18,13 +19,13 @@ return new class extends Migration
             updated_at TIMESTAMP
         )');
 
-        Schema::statement('CREATE TABLE IF NOT EXISTS password_reset_tokens (
+        DB::statement('CREATE TABLE IF NOT EXISTS password_reset_tokens (
             email VARCHAR(255) PRIMARY KEY,
             token VARCHAR(255) NOT NULL,
             created_at TIMESTAMP
         )');
 
-        Schema::statement('CREATE TABLE IF NOT EXISTS sessions (
+        DB::statement('CREATE TABLE IF NOT EXISTS sessions (
             id VARCHAR(255) PRIMARY KEY,
             usuario_id BIGINT REFERENCES usuarios(id) ON DELETE SET NULL,
             ip_address VARCHAR(45),
@@ -33,8 +34,8 @@ return new class extends Migration
             last_activity INTEGER
         )');
 
-        Schema::statement('CREATE INDEX IF NOT EXISTS sessions_usuario_id_index ON sessions(usuario_id)');
-        Schema::statement('CREATE INDEX IF NOT EXISTS sessions_last_activity_index ON sessions(last_activity)');
+        DB::statement('CREATE INDEX IF NOT EXISTS sessions_usuario_id_index ON sessions(usuario_id)');
+        DB::statement('CREATE INDEX IF NOT EXISTS sessions_last_activity_index ON sessions(last_activity)');
     }
 
     public function down(): void

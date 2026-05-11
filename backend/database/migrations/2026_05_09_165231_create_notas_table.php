@@ -3,12 +3,13 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
     public function up(): void
     {
-        Schema::statement('CREATE TABLE IF NOT EXISTS notas (
+        DB::statement('CREATE TABLE IF NOT EXISTS notas (
             id BIGSERIAL PRIMARY KEY,
             aluno_id BIGINT REFERENCES alunos(id) ON DELETE CASCADE,
             disciplina_id BIGINT REFERENCES disciplinas(id) ON DELETE CASCADE,
