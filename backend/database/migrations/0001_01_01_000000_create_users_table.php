@@ -8,35 +8,33 @@ return new class extends Migration
 {
     public function up(): void
     {
-        if (!Schema::hasTable('usuarios')) {
-            Schema::create('usuarios', function (Blueprint $table) {
-                $table->id();
-                $table->string('nome');
-                $table->string('email')->unique();
-                $table->string('senha');
-                $table->enum('funcao', ['admin', 'professor'])->default('professor');
-                $table->timestamps();
-            });
-        }
+        Schema::statement('CREATE TABLE IF NOT EXISTS usuarios (
+            id BIGSERIAL PRIMARY KEY,
+            nome VARCHAR(255) NOT NULL,
+            email VARCHAR(255) NOT NULL UNIQUE,
+            senha VARCHAR(255) NOT NULL,
+            funcao VARCHAR(255) NOT NULL DEFAULT \'professor\',
+            created_at TIMESTAMP,
+            updated_at TIMESTAMP
+        )');
 
-        if (!Schema::hasTable('password_reset_tokens')) {
-            Schema::create('password_reset_tokens', function (Blueprint $table) {
-                $table->string('email')->primary();
-                $table->string('token');
-                $table->timestamp('created_at')->nullable();
-            });
-        }
+        Schema::statement('CREATE TABLE IF NOT EXISTS password_reset_tokens (
+            email VARCHAR(255) PRIMARY KEY,
+            token VARCHAR(255) NOT NULL,
+            created_at TIMESTAMP
+        )');
 
-        if (!Schema::hasTable('sessions')) {
-            Schema::create('sessions', function (Blueprint $table) {
-                $table->string('id')->primary();
-                $table->foreignId('usuario_id')->nullable()->index()->references('id')->on('usuarios');
-                $table->string('ip_address', 45)->nullable();
-                $table->text('user_agent')->nullable();
-                $table->longText('payload');
-                $table->integer('last_activity')->index();
-            });
-        }
+        Schema::statement('CREATE TABLE IF NOT EXISTS sessions (
+            id VARCHAR(255) PRIMARY KEY,
+            usuario_id BIGINT REFERENCES usuarios(id) ON DELETE SET NULL,
+            ip_address VARCHAR(45),
+            user_agent TEXT,
+            payload TEXT,
+            last_activity INTEGER
+        )');
+
+        Schema::statement('CREATE INDEX IF NOT EXISTS sessions_usuario_id_index ON sessions(usuario_id)');
+        Schema::statement('CREATE INDEX IF NOT EXISTS sessions_last_activity_index ON sessions(last_activity)');
     }
 
     public function down(): void

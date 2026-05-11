@@ -8,44 +8,40 @@ return new class extends Migration
 {
     public function up(): void
     {
-        if (!Schema::hasTable('jobs')) {
-            Schema::create('jobs', function (Blueprint $table) {
-                $table->id();
-                $table->string('queue')->index();
-                $table->longText('payload');
-                $table->unsignedSmallInteger('attempts');
-                $table->unsignedInteger('reserved_at')->nullable();
-                $table->unsignedInteger('available_at');
-                $table->unsignedInteger('created_at');
-            });
-        }
+        Schema::statement('CREATE TABLE IF NOT EXISTS jobs (
+            id BIGSERIAL PRIMARY KEY,
+            queue VARCHAR(255),
+            payload TEXT,
+            attempts SMALLINT,
+            reserved_at INTEGER,
+            available_at INTEGER,
+            created_at INTEGER
+        )');
 
-        if (!Schema::hasTable('job_batches')) {
-            Schema::create('job_batches', function (Blueprint $table) {
-                $table->string('id')->primary();
-                $table->string('name');
-                $table->integer('total_jobs');
-                $table->integer('pending_jobs');
-                $table->integer('failed_jobs');
-                $table->longText('failed_job_ids');
-                $table->mediumText('options')->nullable();
-                $table->integer('cancelled_at')->nullable();
-                $table->integer('created_at');
-                $table->integer('finished_at')->nullable();
-            });
-        }
+        Schema::statement('CREATE INDEX IF NOT EXISTS jobs_queue_index ON jobs(queue)');
 
-        if (!Schema::hasTable('failed_jobs')) {
-            Schema::create('failed_jobs', function (Blueprint $table) {
-                $table->id();
-                $table->string('uuid')->unique();
-                $table->text('connection');
-                $table->text('queue');
-                $table->longText('payload');
-                $table->longText('exception');
-                $table->timestamp('failed_at')->useCurrent();
-            });
-        }
+        Schema::statement('CREATE TABLE IF NOT EXISTS job_batches (
+            id VARCHAR(255) PRIMARY KEY,
+            name VARCHAR(255),
+            total_jobs INTEGER,
+            pending_jobs INTEGER,
+            failed_jobs INTEGER,
+            failed_job_ids TEXT,
+            options TEXT,
+            cancelled_at INTEGER,
+            created_at INTEGER,
+            finished_at INTEGER
+        )');
+
+        Schema::statement('CREATE TABLE IF NOT EXISTS failed_jobs (
+            id BIGSERIAL PRIMARY KEY,
+            uuid VARCHAR(255) UNIQUE,
+            connection TEXT,
+            queue TEXT,
+            payload TEXT,
+            exception TEXT,
+            failed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )');
     }
 
     public function down(): void

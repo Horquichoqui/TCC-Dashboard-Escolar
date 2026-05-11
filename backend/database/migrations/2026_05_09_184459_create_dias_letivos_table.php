@@ -8,16 +8,15 @@ return new class extends Migration
 {
     public function up(): void
     {
-        if (!Schema::hasTable('dias_letivos')) {
-            Schema::create('dias_letivos', function (Blueprint $table) {
-                $table->id();
-                $table->year('ano');
-                $table->integer('bimestre');
-                $table->integer('dias');
-                $table->timestamps();
-                $table->unique(['ano', 'bimestre']);
-            });
-        }
+        Schema::statement('CREATE TABLE IF NOT EXISTS dias_letivos (
+            id BIGSERIAL PRIMARY KEY,
+            ano SMALLINT,
+            bimestre INTEGER,
+            dias INTEGER,
+            created_at TIMESTAMP,
+            updated_at TIMESTAMP,
+            UNIQUE(ano, bimestre)
+        )');
     }
 
     public function down(): void

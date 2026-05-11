@@ -8,21 +8,21 @@ return new class extends Migration
 {
     public function up(): void
     {
-        if (!Schema::hasTable('cache')) {
-            Schema::create('cache', function (Blueprint $table) {
-                $table->string('key')->primary();
-                $table->mediumText('value');
-                $table->bigInteger('expiration')->index();
-            });
-        }
+        Schema::statement('CREATE TABLE IF NOT EXISTS cache (
+            key VARCHAR(255) PRIMARY KEY,
+            value TEXT,
+            expiration BIGINT
+        )');
 
-        if (!Schema::hasTable('cache_locks')) {
-            Schema::create('cache_locks', function (Blueprint $table) {
-                $table->string('key')->primary();
-                $table->string('owner');
-                $table->bigInteger('expiration')->index();
-            });
-        }
+        Schema::statement('CREATE INDEX IF NOT EXISTS cache_expiration_index ON cache(expiration)');
+
+        Schema::statement('CREATE TABLE IF NOT EXISTS cache_locks (
+            key VARCHAR(255) PRIMARY KEY,
+            owner VARCHAR(255),
+            expiration BIGINT
+        )');
+
+        Schema::statement('CREATE INDEX IF NOT EXISTS cache_locks_expiration_index ON cache_locks(expiration)');
     }
 
     public function down(): void

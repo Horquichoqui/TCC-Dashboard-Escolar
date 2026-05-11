@@ -8,16 +8,15 @@ return new class extends Migration
 {
     public function up(): void
     {
-        if (!Schema::hasTable('notas')) {
-            Schema::create('notas', function (Blueprint $table) {
-                $table->id();
-                $table->foreignId('aluno_id')->references('id')->on('alunos')->onDelete('cascade');
-                $table->foreignId('disciplina_id')->references('id')->on('disciplinas')->onDelete('cascade');
-                $table->decimal('valor_nota', 5, 2);
-                $table->integer('semestre')->default(1);
-                $table->timestamps();
-            });
-        }
+        Schema::statement('CREATE TABLE IF NOT EXISTS notas (
+            id BIGSERIAL PRIMARY KEY,
+            aluno_id BIGINT REFERENCES alunos(id) ON DELETE CASCADE,
+            disciplina_id BIGINT REFERENCES disciplinas(id) ON DELETE CASCADE,
+            valor_nota NUMERIC(5, 2),
+            semestre INTEGER DEFAULT 1,
+            created_at TIMESTAMP,
+            updated_at TIMESTAMP
+        )');
     }
 
     public function down(): void

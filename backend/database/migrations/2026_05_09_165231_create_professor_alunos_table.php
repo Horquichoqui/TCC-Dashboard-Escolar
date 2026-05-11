@@ -8,15 +8,14 @@ return new class extends Migration
 {
     public function up(): void
     {
-        if (!Schema::hasTable('professor_alunos')) {
-            Schema::create('professor_alunos', function (Blueprint $table) {
-                $table->id();
-                $table->foreignId('professor_id')->references('id')->on('usuarios')->onDelete('cascade');
-                $table->foreignId('aluno_id')->references('id')->on('alunos')->onDelete('cascade');
-                $table->timestamps();
-                $table->unique(['professor_id', 'aluno_id']);
-            });
-        }
+        Schema::statement('CREATE TABLE IF NOT EXISTS professor_alunos (
+            id BIGSERIAL PRIMARY KEY,
+            professor_id BIGINT REFERENCES usuarios(id) ON DELETE CASCADE,
+            aluno_id BIGINT REFERENCES alunos(id) ON DELETE CASCADE,
+            created_at TIMESTAMP,
+            updated_at TIMESTAMP,
+            UNIQUE(professor_id, aluno_id)
+        )');
     }
 
     public function down(): void
