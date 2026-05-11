@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: dashboard-pedagogico-coopen
+    env: node
+    plan: free
+    buildCommand: npm run install:all && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: USE_MOCK_DATA
+        value: false
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
