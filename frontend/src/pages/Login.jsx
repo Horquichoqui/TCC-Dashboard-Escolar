@@ -1,21 +1,10 @@
-// ============================================================
-// TELA DE LOGIN — Login.jsx
-// ============================================================
-// Primeira tela do sistema. O usuário informa e-mail e senha.
-// O backend valida as credenciais e retorna um token JWT.
-// O token é salvo no navegador e usado nas próximas telas.
-// ============================================================
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api.js";
 
 export default function Login() {
   const navegar = useNavigate();
-  const [formulario, setFormulario] = useState({
-    email: "coordenacao@coopen.com",
-    senha: "123456",
-  });
+  const [formulario, setFormulario] = useState({ email: "coordenacao@coopen.com", senha: "123456" });
   const [mensagemErro, setMensagemErro] = useState("");
   const [carregando, setCarregando] = useState(false);
 
@@ -24,14 +13,10 @@ export default function Login() {
     setMensagemErro("");
     setCarregando(true);
     try {
-      // Envia as credenciais para o backend
       const { data } = await api.post("/auth/login", formulario);
-
-      // Salva o token e os dados do usuário no navegador
       localStorage.setItem("token", data.token);
       localStorage.setItem("usuario", JSON.stringify(data.usuario));
-
-      navegar("/dashboard"); // Redireciona para o dashboard após login
+      navegar("/dashboard");
     } catch (erro) {
       setMensagemErro(erro.response?.data?.erro || "Erro ao fazer login");
     } finally {
@@ -40,23 +25,20 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-blue-900 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-8">
-        {/* Cabeçalho da tela de login */}
+    <div className="min-h-screen bg-zinc-900 flex items-center justify-center p-4">
+      <div className="bg-zinc-800 rounded-2xl shadow-xl w-full max-w-md p-8 border border-zinc-700">
         <div className="text-center mb-8">
           <div className="text-5xl mb-3">📊</div>
-          <h1 className="text-2xl font-bold text-gray-800">
+          <h1 className="text-2xl font-bold text-yellow-400">
             Dashboard Pedagógico
           </h1>
-          <p className="text-gray-500 text-sm mt-1">
+          <p className="text-zinc-400 text-sm mt-1">
             Escola Cooperativa Coopen
           </p>
         </div>
-
-        {/* Formulário de login */}
         <form onSubmit={aoEnviar} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-zinc-300 mb-1">
               E-mail
             </label>
             <input
@@ -65,12 +47,12 @@ export default function Login() {
               onChange={(e) =>
                 setFormulario({ ...formulario, email: e.target.value })
               }
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full border border-zinc-600 bg-zinc-700 text-white rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400 placeholder-zinc-500"
               required
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-zinc-300 mb-1">
               Senha
             </label>
             <input
@@ -79,27 +61,24 @@ export default function Login() {
               onChange={(e) =>
                 setFormulario({ ...formulario, senha: e.target.value })
               }
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full border border-zinc-600 bg-zinc-700 text-white rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400"
               required
             />
           </div>
-
           {mensagemErro && (
-            <p className="text-red-600 text-sm bg-red-50 p-3 rounded-lg">
+            <p className="text-red-400 text-sm bg-red-900/30 p-3 rounded-lg">
               {mensagemErro}
             </p>
           )}
-
           <button
             type="submit"
             disabled={carregando}
-            className="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 rounded-lg transition-colors disabled:opacity-50"
+            className="w-full bg-yellow-400 hover:bg-yellow-500 text-zinc-900 font-semibold py-3 rounded-lg transition-colors disabled:opacity-50"
           >
             {carregando ? "Entrando..." : "Entrar"}
           </button>
         </form>
-
-        <p className="text-center text-xs text-gray-400 mt-6">
+        <p className="text-center text-xs text-zinc-500 mt-6">
           TCC/Projeto Integrador - UNIVERSIDADE VIRTUAL DO ESTADO DE SÃO PAULO
         </p>
       </div>

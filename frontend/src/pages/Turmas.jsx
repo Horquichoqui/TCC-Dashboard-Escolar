@@ -1,10 +1,3 @@
-// ============================================================
-// TELA DE TURMAS — Turmas.jsx
-// ============================================================
-// Lista todas as turmas com seus indicadores pedagógicos.
-// Ao clicar em uma turma, filtra os alunos em risco daquela turma.
-// ============================================================
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar.jsx";
@@ -18,7 +11,6 @@ export default function Turmas() {
   const [turmas,     setTurmas]     = useState([]);
   const [carregando, setCarregando] = useState(true);
 
-  // Busca a lista de turmas ao carregar a tela
   useEffect(() => {
     api.get("/turmas")
       .then((r) => setTurmas(r.data))
@@ -27,24 +19,24 @@ export default function Turmas() {
   }, []);
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-gray-50 dark:bg-zinc-900">
       <Sidebar />
       <div className="flex-1 flex flex-col">
         <Header titulo="Turmas" />
         <main className="flex-1 p-6">
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100">
+          <div className="bg-white dark:bg-zinc-800 rounded-xl shadow-sm border border-gray-100 dark:border-zinc-700">
             {carregando ? <Loading /> : turmas.length === 0 ? <EmptyState /> : (
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="bg-gray-50 border-b border-gray-200 text-left">
-                      <th className="px-4 py-3 font-semibold text-gray-600">Turma</th>
-                      <th className="px-4 py-3 font-semibold text-gray-600">Ano Letivo</th>
-                      <th className="px-4 py-3 font-semibold text-gray-600">Turno</th>
-                      <th className="px-4 py-3 font-semibold text-gray-600">Alunos</th>
-                      <th className="px-4 py-3 font-semibold text-gray-600">Média</th>
-                      <th className="px-4 py-3 font-semibold text-gray-600">Frequência</th>
-                      <th className="px-4 py-3 font-semibold text-gray-600">Em Risco</th>
+                    <tr className="bg-gray-50 dark:bg-zinc-700 border-b border-gray-200 dark:border-zinc-600 text-left">
+                      <th className="px-4 py-3 font-semibold text-gray-600 dark:text-zinc-300">Turma</th>
+                      <th className="px-4 py-3 font-semibold text-gray-600 dark:text-zinc-300">Ano Letivo</th>
+                      <th className="px-4 py-3 font-semibold text-gray-600 dark:text-zinc-300">Turno</th>
+                      <th className="px-4 py-3 font-semibold text-gray-600 dark:text-zinc-300">Alunos</th>
+                      <th className="px-4 py-3 font-semibold text-gray-600 dark:text-zinc-300">Média</th>
+                      <th className="px-4 py-3 font-semibold text-gray-600 dark:text-zinc-300">Frequência</th>
+                      <th className="px-4 py-3 font-semibold text-gray-600 dark:text-zinc-300">Em Risco</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -52,16 +44,16 @@ export default function Turmas() {
                       <tr
                         key={turma.id}
                         onClick={() => navegar(`/alunos-risco?turma_id=${turma.id}`)}
-                        className="border-b border-gray-100 hover:bg-gray-50 cursor-pointer"
+                        className="border-b border-gray-100 dark:border-zinc-700 hover:bg-gray-50 dark:hover:bg-zinc-700 cursor-pointer"
                       >
-                        <td className="px-4 py-3 font-medium text-blue-700">{turma.nome}</td>
-                        <td className="px-4 py-3 text-gray-600">{turma.ano_letivo}</td>
-                        <td className="px-4 py-3 text-gray-600">{turma.turno || "-"}</td>
-                        <td className="px-4 py-3">{turma.total_alunos}</td>
-                        <td className="px-4 py-3 font-semibold">
+                        <td className="px-4 py-3 font-medium text-yellow-500 dark:text-yellow-400">{turma.nome}</td>
+                        <td className="px-4 py-3 text-gray-600 dark:text-gray-300">{turma.ano_letivo}</td>
+                        <td className="px-4 py-3 text-gray-600 dark:text-gray-300">{turma.turno || "-"}</td>
+                        <td className="px-4 py-3 dark:text-white">{turma.total_alunos}</td>
+                        <td className="px-4 py-3 font-semibold dark:text-white">
                           {turma.media_turma ? Number(turma.media_turma).toFixed(1) : "-"}
                         </td>
-                        <td className="px-4 py-3">
+                        <td className="px-4 py-3 dark:text-gray-300">
                           {turma.frequencia_media ? `${Number(turma.frequencia_media).toFixed(1)}%` : "-"}
                         </td>
                         <td className="px-4 py-3">

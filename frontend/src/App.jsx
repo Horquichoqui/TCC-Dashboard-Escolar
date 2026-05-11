@@ -13,6 +13,8 @@ import AlunosRisco from "./pages/AlunosRisco.jsx";
 import Turmas from "./pages/Turmas.jsx";
 import DetalheAluno from "./pages/DetalheAluno.jsx";
 import IntegracaoSponte from "./pages/IntegracaoSponte.jsx";
+import Perfil from "./pages/Perfil.jsx";
+import Configuracoes from "./pages/Configuracoes.jsx";
 
 // Componente que protege rotas privadas:
 // se o usuário não estiver logado, redireciona para /login
@@ -35,8 +37,9 @@ export default function App() {
         <Route path="/turmas"             element={<RotaProtegida><Turmas /></RotaProtegida>} />
         <Route path="/alunos/:id"         element={<RotaProtegida><DetalheAluno /></RotaProtegida>} />
         <Route path="/integracao-sponte"  element={<RotaProtegida><IntegracaoSponte /></RotaProtegida>} />
-
         {/* Qualquer outra rota redireciona para o dashboard */}
+        <Route path="/perfil"             element={<RotaProtegida><Perfil /></RotaProtegida>} />
+        <Route path="/configuracoes"      element={<RotaProtegida><Configuracoes /></RotaProtegida>} />
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </BrowserRouter>

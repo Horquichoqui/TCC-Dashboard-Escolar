@@ -10,10 +10,12 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 // Itens do menu lateral com ícone, rótulo e rota
 const itensMenu = [
-  { para: "/dashboard",         rotulo: "Dashboard",          icone: "📊" },
-  { para: "/alunos-risco",      rotulo: "Alunos em Risco",    icone: "⚠️" },
-  { para: "/turmas",            rotulo: "Turmas",             icone: "🏫" },
-  { para: "/integracao-sponte", rotulo: "Integração Sponte",  icone: "🔗" },
+  { para: "/dashboard",         rotulo: "Dashboard",         icone: "📊" },
+  { para: "/alunos-risco",      rotulo: "Alunos em Risco",   icone: "⚠️" },
+  { para: "/turmas",            rotulo: "Turmas",            icone: "🏫" },
+  { para: "/integracao-sponte", rotulo: "Integração Sponte", icone: "🔗" },
+  { para: "/perfil",            rotulo: "Meu Perfil",        icone: "👤" },
+  { para: "/configuracoes",     rotulo: "Configurações",     icone: "⚙️" },
 ];
 
 export default function Sidebar() {
@@ -27,11 +29,10 @@ export default function Sidebar() {
   }
 
   return (
-    <aside className="w-64 min-h-screen bg-blue-900 text-white flex flex-col">
-      {/* Cabeçalho do menu */}
-      <div className="p-6 border-b border-blue-800">
-        <h1 className="text-lg font-bold leading-tight">Dashboard Pedagógico</h1>
-        <p className="text-blue-300 text-sm mt-1">Coopen</p>
+    <aside className="w-64 min-h-screen bg-zinc-900 text-yellow-400 flex flex-col">
+      <div className="p-6 border-b border-zinc-700">
+        <h1 className="text-lg font-bold leading-tight text-yellow-400">Dashboard Pedagógico</h1>
+        <p className="text-zinc-400 text-sm mt-1">Coopen</p>
       </div>
 
       {/* Links de navegação */}
@@ -43,8 +44,8 @@ export default function Sidebar() {
             className={({ isActive }) =>
               `flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
                 isActive
-                  ? "bg-blue-700 text-white"
-                  : "text-blue-200 hover:bg-blue-800 hover:text-white"
+                  ? "bg-yellow-400 text-zinc-900"
+                  : "text-zinc-300 hover:bg-zinc-800 hover:text-yellow-300"
               }`
             }
           >
@@ -53,12 +54,11 @@ export default function Sidebar() {
           </NavLink>
         ))}
       </nav>
-
       {/* Botão de sair */}
-      <div className="p-4 border-t border-blue-800">
+      <div className="p-4 border-t border-zinc-700">
         <button
           onClick={sair}
-          className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-blue-200 hover:bg-blue-800 hover:text-white transition-colors"
+          className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-zinc-400 hover:bg-zinc-800 hover:text-yellow-300 transition-colors"
         >
           <span>🚪</span> Sair
         </button>

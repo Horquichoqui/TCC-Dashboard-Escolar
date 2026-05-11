@@ -228,6 +228,38 @@ Express (Node.js)
 Em produção, o Express serve o `frontend/dist` gerado pelo `vite build`.  
 Qualquer rota não-API é redirecionada para `index.html` (SPA).
 
+---
+
+## Como explicar o sistema na apresentação
+
+1. O usuário acessa o sistema pelo Render.
+2. O backend Express entrega o frontend React.
+3. O login gera um token JWT.
+4. As telas protegidas usam esse token em cada requisição.
+5. O backend consulta o banco Neon com queries SQL simples.
+6. Os dados são transformados em indicadores pedagógicos.
+7. O dashboard mostra gráficos (Recharts) e cards de resumo.
+8. A tela de alunos em risco aplica as regras de média (≥6) e frequência (≥75%).
+9. A coordenação pode filtrar dados e exportar CSV.
+10. O sistema está preparado para futura integração com a API Sponte.
+
+---
+
+## Roteiro rápido para demonstração
+
+1. Abrir o sistema publicado no Render
+2. Fazer login (`coordenacao@coopen.com` / `123456`)
+3. Mostrar o **Dashboard** — cards de indicadores e 4 gráficos
+4. Explicar os cards: total de alunos, alunos em risco, média geral, frequência
+5. Mostrar os gráficos: risco por turma, evolução de média, distribuição, frequência
+6. Abrir **Alunos em Risco** — tabela com situação colorida
+7. Aplicar filtros por turma e situação
+8. Exportar **CSV**
+9. Abrir o detalhe de um aluno em risco
+10. Mostrar a página **Integração Sponte**
+11. Explicar que os dados vêm do Neon e o sistema está preparado para integração futura com API Sponte
+
+---
 
 ## Checklist final
 
