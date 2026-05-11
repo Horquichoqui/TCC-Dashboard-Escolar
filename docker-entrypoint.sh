@@ -27,6 +27,9 @@ echo 'ok';
 done
 echo "    Banco de dados disponível!"
 
+echo "==> Registrando providers dos pacotes..."
+php artisan package:discover --ansi
+
 echo "==> Limpando caches..."
 php artisan config:clear
 php artisan route:clear

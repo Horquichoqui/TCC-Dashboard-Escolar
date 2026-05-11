@@ -15,36 +15,28 @@ class AuthController extends Controller
             'senha' => 'required'
         ]);
 
-        try {
-            $usuario = Usuario::where('email', $request->email)->first();
+        $usuario = Usuario::where('email', $request->email)->first();
 
-            if (!$usuario || !Hash::check($request->senha, $usuario->senha)) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Credenciais inválidas'
-                ], 401);
-            }
-
-            $token = $usuario->createToken('auth-token')->plainTextToken;
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Login realizado com sucesso',
-                'token' => $token,
-                'usuario' => [
-                    'id' => $usuario->id,
-                    'nome' => $usuario->nome,
-                    'email' => $usuario->email,
-                    'funcao' => $usuario->funcao
-                ]
-            ]);
-        } catch (\Throwable $e) {
+        if (!$usuario || !Hash::check($request->senha, $usuario->senha)) {
             return response()->json([
                 'success' => false,
-                'message' => 'Erro interno: ' . $e->getMessage(),
-                'file' => $e->getFile() . ':' . $e->getLine(),
-            ], 500);
+                'message' => 'Credenciais inválidas'
+            ], 401);
         }
+
+        $token = $usuario->createToken('auth-token')->plainTextToken;
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Login realizado com sucesso',
+            'token' => $token,
+            'usuario' => [
+                'id' => $usuario->id,
+                'nome' => $usuario->nome,
+                'email' => $usuario->email,
+                'funcao' => $usuario->funcao
+            ]
+        ]);
     }
 
     public function logout(Request $request)
