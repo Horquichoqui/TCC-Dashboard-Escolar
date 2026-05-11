@@ -3,27 +3,27 @@
 Sistema de Dashboard Pedagógico para Monitoramento de Desempenho Escolar.
 TCC/Projeto Integrador — UNIVESP.
 
----
+***
 
 ## Objetivo
 
 Ajudar a coordenação pedagógica da Escola Cooperativa Coopen a visualizar rapidamente alunos com baixo desempenho, risco de reprovação ou risco de evasão, por meio de dashboards, gráficos e filtros.
 
----
+***
 
 ## Tecnologias
 
-| Camada | Tecnologia |
-|--------|-----------|
-| Frontend | React + Vite + Tailwind CSS + Recharts |
-| Roteamento | React Router DOM |
-| HTTP | Axios |
-| Backend | Node.js + Express |
-| Banco | PostgreSQL no Neon |
-| Autenticação | JWT + bcryptjs |
-| Deploy | Render (uma única instância) |
+| Camada       | Tecnologia                             |
+| ------------ | -------------------------------------- |
+| Frontend     | React + Vite + Tailwind CSS + Recharts |
+| Roteamento   | React Router DOM                       |
+| HTTP         | Axios                                  |
+| Backend      | Node.js + Express                      |
+| Banco        | PostgreSQL no Neon                     |
+| Autenticação | JWT + bcryptjs                         |
+| Deploy       | Render (uma única instância)           |
 
----
+***
 
 ## Como rodar localmente
 
@@ -80,11 +80,11 @@ npm run db:seed
 npm run dev
 ```
 
-- Frontend: http://localhost:5173
-- Backend: http://localhost:3000
-- Health check: http://localhost:3000/api/health
+- Frontend: <http://localhost:5173>
+- Backend: <http://localhost:3000>
+- Health check: <http://localhost:3000/api/health>
 
----
+***
 
 ## Banco de dados Neon
 
@@ -92,16 +92,16 @@ O sistema usa PostgreSQL hospedado no [Neon](https://neon.tech).
 
 ### Tabelas (nomes em português brasileiro)
 
-| Tabela | Descrição |
-|--------|-----------|
-| `usuarios` | Usuários do sistema (coordenação para conferência) |
-| `turmas` | Turmas e anos letivos |
-| `alunos` | Alunos matriculados |
-| `disciplinas` | Disciplinas |
-| `periodos_letivos` | Bimestres/semestres |
-| `notas` | Notas por aluno, disciplina e período |
-| `frequencias` | Frequência por aluno e disciplina |
-| `integracoes_sponte` | Registro de integração com Sponte |
+| Tabela               | Descrição                                          |
+| -------------------- | -------------------------------------------------- |
+| `usuarios`           | Usuários do sistema (coordenação para conferência) |
+| `turmas`             | Turmas e anos letivos                              |
+| `alunos`             | Alunos matriculados                                |
+| `disciplinas`        | Disciplinas                                        |
+| `periodos_letivos`   | Bimestres/semestres                                |
+| `notas`              | Notas por aluno, disciplina e período              |
+| `frequencias`        | Frequência por aluno e disciplina                  |
+| `integracoes_sponte` | Registro de integração com Sponte                  |
 
 ### Criar as tabelas
 
@@ -120,11 +120,12 @@ npm run db:seed
 Acesse: `http://localhost:3000/api/health`
 
 Resposta esperada:
+
 ```json
 { "status": "ok", "database": "connected", "message": "Backend conectado ao Neon" }
 ```
 
----
+***
 
 ## Login inicial
 
@@ -133,7 +134,7 @@ E-mail: coordenacao@coopen.com
 Senha:  123456
 ```
 
----
+***
 
 ## Deploy no Render
 
@@ -143,13 +144,13 @@ Senha:  123456
 2. Conecte o repositório GitHub
 3. Configure:
 
-| Campo | Valor |
-|-------|-------|
-| Build Command | `npm run install:all && npm run build` |
-| Start Command | `npm start` |
-| Root Directory | (deixar vazio) |
+| Campo          | Valor                                  |
+| -------------- | -------------------------------------- |
+| Build Command  | `npm run install:all && npm run build` |
+| Start Command  | `npm start`                            |
+| Root Directory | (deixar vazio)                         |
 
-4. Adicione as **Environment Variables**:
+1. Adicione as **Environment Variables**:
 
 ```
 DATABASE_URL=<url-real-do-neon>
@@ -158,15 +159,17 @@ NODE_ENV=production
 USE_MOCK_DATA=false
 ```
 
-5. Clique em **Deploy**
+1. Clique em **Deploy**
 
 Após o deploy, rode o seed uma vez via shell do Render:
+
 ```bash
 npm run db:init
 npm run db:seed
 ```
 
 O sistema estará disponível em:
+
 ```
 https://seu-app.onrender.com/login
 https://seu-app.onrender.com/dashboard
@@ -176,7 +179,7 @@ https://seu-app.onrender.com/api/health
 
 > **Importante:** Não criar Static Site separado. O Express serve o React compilado em produção.
 
----
+***
 
 ## Estrutura do projeto
 
@@ -211,7 +214,7 @@ https://seu-app.onrender.com/api/health
         └── utils/formatters.js
 ```
 
----
+***
 
 ## Como funciona a arquitetura
 
@@ -225,41 +228,10 @@ Express (Node.js)
   └── /*      → frontend/dist (React compilado)
 ```
 
-Em produção, o Express serve o `frontend/dist` gerado pelo `vite build`.  
+Em produção, o Express serve o `frontend/dist` gerado pelo `vite build`.\
 Qualquer rota não-API é redirecionada para `index.html` (SPA).
 
----
-
-## Como explicar o sistema na apresentação
-
-1. O usuário acessa o sistema pelo Render.
-2. O backend Express entrega o frontend React.
-3. O login gera um token JWT.
-4. As telas protegidas usam esse token em cada requisição.
-5. O backend consulta o banco Neon com queries SQL simples.
-6. Os dados são transformados em indicadores pedagógicos.
-7. O dashboard mostra gráficos (Recharts) e cards de resumo.
-8. A tela de alunos em risco aplica as regras de média (≥6) e frequência (≥75%).
-9. A coordenação pode filtrar dados e exportar CSV.
-10. O sistema está preparado para futura integração com a API Sponte.
-
----
-
-## Roteiro rápido para demonstração
-
-1. Abrir o sistema publicado no Render
-2. Fazer login (`coordenacao@coopen.com` / `123456`)
-3. Mostrar o **Dashboard** — cards de indicadores e 4 gráficos
-4. Explicar os cards: total de alunos, alunos em risco, média geral, frequência
-5. Mostrar os gráficos: risco por turma, evolução de média, distribuição, frequência
-6. Abrir **Alunos em Risco** — tabela com situação colorida
-7. Aplicar filtros por turma e situação
-8. Exportar **CSV**
-9. Abrir o detalhe de um aluno em risco
-10. Mostrar a página **Integração Sponte**
-11. Explicar que os dados vêm do Neon e o sistema está preparado para integração futura com API Sponte
-
----
+***
 
 ## Checklist final
 
@@ -277,11 +249,9 @@ Qualquer rota não-API é redirecionada para `index.html` (SPA).
 - [ ] `DATABASE_URL` real não aparece no código
 - [ ] Recarregar `/dashboard` não gera 404 em produção
 
----
-
----
+***
 
 ## Aviso sobre rotas de banco
 
-As rotas `/api/database/*` são para inspeção em desenvolvimento.  
+As rotas `/api/database/*` são para inspeção em desenvolvimento.\
 **Remover ou proteger com autenticação antes de tornar o sistema público.**
