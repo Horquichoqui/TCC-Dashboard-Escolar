@@ -1,3 +1,9 @@
+// ============================================================
+// TELA DE ALUNOS EM RISCO - AlunosRisco.jsx
+// ============================================================
+// Lista os alunos em situação de Risco ou Atenção.
+// Permite filtrar por turma e situação, e exportar o resultado em CSV.
+// ============================================================
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar.jsx";
@@ -7,6 +13,8 @@ import RiskBadge from "../components/RiskBadge.jsx";
 import Loading from "../components/Loading.jsx";
 import EmptyState from "../components/EmptyState.jsx";
 import api from "../services/api.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFileArrowDown } from "@fortawesome/free-solid-svg-icons";
 
 export default function AlunosRisco() {
   const navegar = useNavigate();
@@ -67,7 +75,10 @@ export default function AlunosRisco() {
               onClick={exportarCSV}
               className="bg-yellow-400 hover:bg-yellow-500 text-zinc-900 text-sm font-medium px-5 py-2.5 rounded-lg transition-colors"
             >
-              📥 Exportar CSV
+              <span className="inline-flex items-center gap-2">
+                <FontAwesomeIcon icon={faFileArrowDown} />
+                Exportar CSV
+              </span>
             </button>
           </div>
 

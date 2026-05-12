@@ -1,5 +1,5 @@
 // ============================================================
-// CABEÇALHO DAS TELAS — Header.jsx
+// CABE�?ALHO DAS TELAS �?? Header.jsx
 // ============================================================
 // Barra superior exibida em todas as telas do sistema.
 // Mostra o título da página e o nome do usuário logado.
@@ -7,6 +7,8 @@
 
 import React from "react";
 import { useTema } from "../contexts/TemaContext.jsx";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 
 export default function Header({ titulo }) {
   // Lê os dados do usuário salvo no localStorage após o login
@@ -22,7 +24,7 @@ export default function Header({ titulo }) {
           className="text-lg px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-zinc-700 hover:bg-yellow-100 dark:hover:bg-zinc-600 transition-colors"
           title={modoEscuro ? "Modo claro" : "Modo escuro"}
         >
-          {modoEscuro ? "☀️" : "🌙"}
+          <FontAwesomeIcon icon={modoEscuro ? faSun : faMoon} />
         </button>
         <span className="text-sm text-gray-500 dark:text-zinc-400">
           {usuario.nome || "Coordenação"}

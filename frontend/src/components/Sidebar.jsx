@@ -1,5 +1,5 @@
 // ============================================================
-// MENU LATERAL — Sidebar.jsx
+// MENU LATERAL �?? Sidebar.jsx
 // ============================================================
 // Exibido em todas as telas protegidas do sistema.
 // Contém os links de navegação e o botão de sair.
@@ -7,15 +7,25 @@
 
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChartLine,
+  faTriangleExclamation,
+  faSchool,
+  faLink,
+  faUser,
+  faGear,
+  faRightFromBracket,
+} from "@fortawesome/free-solid-svg-icons";
 
 // Itens do menu lateral com ícone, rótulo e rota
 const itensMenu = [
-  { para: "/dashboard",         rotulo: "Dashboard",         icone: "📊" },
-  { para: "/alunos-risco",      rotulo: "Alunos em Risco",   icone: "⚠️" },
-  { para: "/turmas",            rotulo: "Turmas",            icone: "🏫" },
-  { para: "/integracao-sponte", rotulo: "Integração Sponte", icone: "🔗" },
-  { para: "/perfil",            rotulo: "Meu Perfil",        icone: "👤" },
-  { para: "/configuracoes",     rotulo: "Configurações",     icone: "⚙️" },
+  { para: "/dashboard",         rotulo: "Dashboard",          icone: faChartLine },
+  { para: "/alunos-risco",      rotulo: "Alunos em Risco",    icone: faTriangleExclamation },
+  { para: "/turmas",            rotulo: "Turmas",             icone: faSchool },
+  { para: "/integracao-sponte", rotulo: "Integração Sponte",  icone: faLink },
+  { para: "/perfil",            rotulo: "Meu Perfil",         icone: faUser },
+  { para: "/configuracoes",     rotulo: "Configurações",      icone: faGear },
 ];
 
 export default function Sidebar() {
@@ -49,7 +59,7 @@ export default function Sidebar() {
               }`
             }
           >
-            <span>{item.icone}</span>
+            <FontAwesomeIcon icon={item.icone} fixedWidth />
             {item.rotulo}
           </NavLink>
         ))}
@@ -60,7 +70,7 @@ export default function Sidebar() {
           onClick={sair}
           className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-zinc-400 hover:bg-zinc-800 hover:text-yellow-300 transition-colors"
         >
-          <span>🚪</span> Sair
+          <FontAwesomeIcon icon={faRightFromBracket} fixedWidth /> Sair
         </button>
       </div>
     </aside>

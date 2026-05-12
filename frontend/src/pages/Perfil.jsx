@@ -1,8 +1,17 @@
+// ============================================================
+// PERFIL ? Perfil.jsx
+// ============================================================
+// Tela para exibir os dados do usuário logado e seu perfil de acesso.
+// Consome /auth/me para obter informações atualizadas do backend.
+// ============================================================
+
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar.jsx";
 import Header from "../components/Header.jsx";
 import Loading from "../components/Loading.jsx";
 import api from "../services/api.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 export default function Perfil() {
   const [usuario,    setUsuario]    = useState(null);
@@ -28,7 +37,7 @@ export default function Perfil() {
             <>
               <div className="bg-white dark:bg-zinc-800 rounded-xl shadow-sm border border-gray-100 dark:border-zinc-700 p-6 flex items-center gap-6">
                 <div className="w-20 h-20 rounded-full bg-yellow-400 flex items-center justify-center text-4xl select-none">
-                  ðŸ‘¤
+                  <FontAwesomeIcon icon={faUser} />
                 </div>
                 <div>
                   <h2 className="text-2xl font-bold text-gray-800 dark:text-white">{usuario.nome}</h2>

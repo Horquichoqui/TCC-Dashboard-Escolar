@@ -1,6 +1,15 @@
+// ============================================================
+// TELA DE LOGIN ? Login.jsx
+// ============================================================
+// Responsável por autenticar o usuário.
+// Ao logar, salva token/usuário no localStorage e redireciona ao Dashboard.
+// ============================================================
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChartLine } from "@fortawesome/free-solid-svg-icons";
 
 export default function Login() {
   const navegar = useNavigate();
@@ -28,7 +37,9 @@ export default function Login() {
     <div className="min-h-screen bg-zinc-900 flex items-center justify-center p-4">
       <div className="bg-zinc-800 rounded-2xl shadow-xl w-full max-w-md p-8 border border-zinc-700">
         <div className="text-center mb-8">
-          <div className="text-5xl mb-3">ðŸ“Š</div>
+          <div className="text-5xl mb-3">
+            <FontAwesomeIcon icon={faChartLine} />
+          </div>
           <h1 className="text-2xl font-bold text-yellow-400">
             Dashboard PedagÃ³gico
           </h1>
@@ -79,7 +90,7 @@ export default function Login() {
           </button>
         </form>
         <p className="text-center text-xs text-zinc-500 mt-6">
-          TCC/Projeto Integrador - UNIVERSIDADE VIRTUAL DO ESTADO DE SÃƒO PAULO
+          TCC/Projeto Integrador - UNIVERSIDADE VIRTUAL DO ESTADO DE SÃ?O PAULO
         </p>
       </div>
     </div>

@@ -1,3 +1,10 @@
+// ============================================================
+// DASHBOARD - Dashboard.jsx
+// ============================================================
+// Página principal após o login.
+// Busca indicadores e gráficos na API e exibe os cards e charts do sistema.
+// ============================================================
+
 import React, { useEffect, useState } from "react";
 import {
   BarChart, Bar, LineChart, Line, PieChart, Pie, Cell,
@@ -11,6 +18,15 @@ import ChartCard from "../components/ChartCard.jsx";
 import FilterBar from "../components/FilterBar.jsx";
 import Loading from "../components/Loading.jsx";
 import api from "../services/api.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUserGraduate,
+  faTriangleExclamation,
+  faPenToSquare,
+  faCalendarCheck,
+  faSchool,
+  faArrowTrendDown,
+} from "@fortawesome/free-solid-svg-icons";
 
 const CORES_SITUACAO = {
   Regular:   "#22c55e",
@@ -90,12 +106,12 @@ export default function Dashboard() {
           <FilterBar filtros={filtros} onChange={setFiltros} opcoesTurmas={turmas} />
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            <StatCard titulo="Total de Alunos"  valor={resumo?.total_alunos}                                               icone="👨‍🎓" cor="blue"   />
-            <StatCard titulo="Alunos em Risco"  valor={totalEmRisco}                                                       icone="⚠️"  cor="red"    />
-            <StatCard titulo="Média Geral"      valor={resumo?.media_geral}                                                icone="📝"  cor="yellow" />
-            <StatCard titulo="Frequência Média" valor={resumo?.frequencia_media ? `${resumo.frequencia_media}%` : "-"}    icone="📅"  cor="green"  />
-            <StatCard titulo="Turmas"           valor={resumo?.total_turmas}                                               icone="🏫"  cor="blue"   />
-            <StatCard titulo="Abaixo da Média"  valor={`${percentualAbaixoMedia}%`}                                        icone="📉"  cor="red"    />
+            <StatCard titulo="Total de Alunos"  valor={resumo?.total_alunos}                                            icone={<FontAwesomeIcon icon={faUserGraduate} />}        cor="blue"   />
+            <StatCard titulo="Alunos em Risco"  valor={totalEmRisco}                                                    icone={<FontAwesomeIcon icon={faTriangleExclamation} />}  cor="red"    />
+            <StatCard titulo="Média Geral"      valor={resumo?.media_geral}                                             icone={<FontAwesomeIcon icon={faPenToSquare} />}          cor="yellow" />
+            <StatCard titulo="Frequência Média" valor={resumo?.frequencia_media ? `${resumo.frequencia_media}%` : "-"} icone={<FontAwesomeIcon icon={faCalendarCheck} />}        cor="green"  />
+            <StatCard titulo="Turmas"           valor={resumo?.total_turmas}                                            icone={<FontAwesomeIcon icon={faSchool} />}               cor="blue"   />
+            <StatCard titulo="Abaixo da Média"  valor={`${percentualAbaixoMedia}%`}                                     icone={<FontAwesomeIcon icon={faArrowTrendDown} />}       cor="red"    />
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
