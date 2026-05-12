@@ -1,5 +1,5 @@
 // ============================================================
-// ESTADO VAZIO - EmptyState.jsx
+// ESTADO VAZIO — EmptyState.jsx
 // ============================================================
 // Exibido quando uma consulta não retorna nenhum resultado.
 // ============================================================

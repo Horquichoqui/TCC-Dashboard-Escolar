@@ -1,5 +1,5 @@
 // ============================================================
-// MENU LATERAL �?? Sidebar.jsx
+// MENU LATERAL - Sidebar.jsx
 // ============================================================
 // Exibido em todas as telas protegidas do sistema.
 // Contém os links de navegação e o botão de sair.

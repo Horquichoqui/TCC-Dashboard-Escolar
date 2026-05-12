@@ -1,8 +1,8 @@
 // ============================================================
-// DETALHE DO ALUNO ? DetalheAluno.jsx
+// DETALHE DO ALUNO - DetalheAluno.jsx
 // ============================================================
-// Exibe dados completos de um aluno (mÈdia, frequÍncia, notas e situaÁ„o).
-// Usa o par‚metro :id da rota para buscar o aluno na API.
+// Exibe dados completos de um aluno (mÔøΩdia, frequÔøΩncia, notas e situaÔøΩÔøΩo).
+// Usa o parametro :id da rota para buscar o aluno na API.
 // ============================================================
 
 import React, { useEffect, useState } from "react";
@@ -79,7 +79,7 @@ export default function DetalheAluno() {
         <main className="flex-1 p-6 space-y-6">
 
           <button onClick={() => navegar(-1)} className="text-yellow-500 dark:text-yellow-400 hover:underline text-sm">
-            ‚?ê Voltar
+            ‚Üê Voltar
           </button>
 
           <div className="bg-white dark:bg-zinc-800 rounded-xl shadow-sm border border-gray-100 dark:border-zinc-700 p-6">

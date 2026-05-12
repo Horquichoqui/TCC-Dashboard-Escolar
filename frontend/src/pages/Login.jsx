@@ -1,8 +1,8 @@
 // ============================================================
-// TELA DE LOGIN ? Login.jsx
+// TELA DE LOGIN - Login.jsx
 // ============================================================
-// Respons·vel por autenticar o usu·rio.
-// Ao logar, salva token/usu·rio no localStorage e redireciona ao Dashboard.
+// Respons√°vel por autenticar o usu√°rio.
+// Ao logar, salva token/usu√°rio no localStorage e redireciona ao Dashboard.
 // ============================================================
 
 import React, { useState } from "react";
@@ -90,7 +90,7 @@ export default function Login() {
           </button>
         </form>
         <p className="text-center text-xs text-zinc-500 mt-6">
-          TCC/Projeto Integrador - UNIVERSIDADE VIRTUAL DO ESTADO DE S√?O PAULO
+          TCC/Projeto Integrador - UNIVERSIDADE VIRTUAL DO ESTADO DE S√ÉO PAULO
         </p>
       </div>
     </div>

@@ -1,8 +1,8 @@
 // ============================================================
-// PERFIL ? Perfil.jsx
+// PERFIL - Perfil.jsx
 // ============================================================
-// Tela para exibir os dados do usuário logado e seu perfil de acesso.
-// Consome /auth/me para obter informações atualizadas do backend.
+// Tela para exibir os dados do usuÃ¡rio logado e seu perfil de acesso.
+// Consome /auth/me para obter informaÃ§Ãµes atualizadas do backend.
 // ============================================================
 
 import React, { useEffect, useState } from "react";

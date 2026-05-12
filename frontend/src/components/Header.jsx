@@ -1,5 +1,5 @@
 // ============================================================
-// CABE�?ALHO DAS TELAS �?? Header.jsx
+// CABEÇALHO DAS TELAS — Header.jsx
 // ============================================================
 // Barra superior exibida em todas as telas do sistema.
 // Mostra o título da página e o nome do usuário logado.
